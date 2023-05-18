@@ -13,16 +13,24 @@ export default function Home() {
   
 
   const translate = async () => {
+    const transParam = new FormData();
+    transParam.append('text', transText);
+    transParam.append('langTo', 'en');
+    //JSON.stringify({ Text: transText, LangTo: 'en' })
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/translate`, {
-      body: JSON.stringify({ Text: transText, LangTo: 'en' }),
+      body: transParam,
       method: 'POST',
     })
     setTrasnResText(await res.text()) 
   }
 
+  const correctParam = new FormData();
+  correctParam.append('text', correctText);
+  //JSON.stringify({ Text: correctText }),
   const correct = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/correct`, {
-      body: JSON.stringify({ Text: correctText }),
+      body: correctParam,
       method: 'POST',
     })
     setCorrectResText(await res.text()) 
